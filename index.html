@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أداة المهندس الشاملة للشبكات - النسخة المتقدمة</title>
+    <title>أداة المهندس الشاملة للشبكات - النسخة النهائية المطورة</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -45,7 +45,7 @@
         .octet-box { background-color: #030712; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
         .octet-title { font-size: 0.8rem; color: var(--text-muted); }
         .octet-dec { font-weight: bold; margin: 6px 0; font-size: 1rem; color: #fbbf24; }
-        .bits-container { display: flex; justify-content: center; gap: 3px; flex-wrap: wrap; }
+        .bits-container { display: flex; justify-content: center; gap: 3px; flex-wrap: wrap; direction: ltr; }
         .bit { width: 16px; height: 22px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-family: monospace; color: white; font-weight: bold; }
         .bit.network { background-color: var(--network-color); }
         .bit.host { background-color: var(--host-color); }
@@ -65,7 +65,7 @@
 
 <div class="container">
     <h1>أداة المهندس الشاملة للشبكات</h1>
-    <p class="subtitle">المرجع الهندسي المتكامل: حاسبة حية مع ترتيب البتات الصحيح + مختبر استلاف البتات و VLSM + بروتوكول ARP + الشرح الموسع</p>
+    <p class="subtitle">المرجع الهندسي المتكامل: حاسبة حية مع ترتيب الأوبتكتات والبتات المعكوسة + مختبر استلاف البتات والـ VLSM + الشرح الموسع</p>
 
     <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('calc')">حاسبة الآي بي والترتيب الثنائي</button>
@@ -113,7 +113,7 @@
                 • <strong>عنوان البث (Broadcast Address - مثال .255):</strong> هو العنوان الأخير في الشبكة ولا يُعطى للأجهزة أيضاً؛ لأنه مخصص لإرسال رسالة جماعية لكل الأجهزة في نفس الشبكة في نفس اللحظة.
             </div>
 
-            <h3 style="margin-top:25px; margin-bottom:5px; color:var(--primary); font-size:1.1rem;">الهيكل الثنائي للـ 32-Bit (مرتب من الأكبر $2^7$ على اليسار إلى الأصغر $2^0$ على اليمين)</h3>
+            <h3 style="margin-top:25px; margin-bottom:5px; color:var(--primary); font-size:1.1rem;">الهيكل الثنائي للـ 32-Bit (مرتب من اليمين Octet 1 إلى اليسار Octet 4 | وبداخل كل أوبتكت من $2^0$ يميناً إلى $2^7$ يساراً)</h3>
             <div class="legend">
                 <div class="legend-item"><div class="legend-color" style="background:var(--network-color)"></div> جزء الشبكة (Network Bits)</div>
                 <div class="legend-item"><div class="legend-color" style="background:var(--host-color)"></div> جزء الجهاز (Host Bits)</div>
@@ -156,20 +156,20 @@
 
             <div class="grid-results" style="margin-top: 15px;">
                 <div class="result-box">
-                    <div class="result-title">نطاق الأيبيهات الناتجة (Range)</div>
+                    <div class="result-title">نطاق الأيبيهات الصالحة للأجهزة (Usable Range)</div>
                     <div class="result-value" id="subRange" style="font-size:0.85rem;">192.168.1.1 - 192.168.1.126</div>
                 </div>
                 <div class="result-box">
-                    <div class="result-title">العناوين المتبقية (Unused/Remainder IPs)</div>
-                    <div class="result-value" id="subRemainder">128 عنوان متبقٍ</div>
+                    <div class="result-title">العناوين المتبقية وإدارة الكتلة (Unused/Remainder IPs)</div>
+                    <div class="result-value" id="subRemainder" style="font-size:0.85rem;">128 إجمالي الكتلة (متاح منها كأجهزة 100 والباقي محجوز)</div>
                 </div>
             </div>
 
             <div class="note-box" style="margin-top:20px;">
-                <strong>📌 تحليل النوتات واستلاف البتات (Bit Borrowing Details):</strong><br>
-                • <strong>كيف تتم عملية الاستلاف؟</strong> عندما تطلب شبكة فرعية جديدة، نذهب إلى جهة الـ Host (أجزاء الأصفار على اليمين في قناع الشبكة الثنائي)، ونقوم بتحويل (استلاف) بتات من 0 إلى 1. كل بت نستلفه يضاعف عدد الشبكات الناتجة بقاعدة $2^s$.<br>
-                • <strong>مثال التطبيق الحالي:</strong> طلبت 100 جهاز، أقرب رقم يدعم هذا العدد هو 128 (يعني نحتاج 7 بتات للأجهزة $h=7$). وبما أن الإجمالي 32 بت، إذن الـ CIDR الجديد يصبح /25، وقناع الشبكة يتحول إلى `255.255.255.128`.<br>
-                • <strong>ماذا عن المتبقي وكيف نقسمه مرة أخرى؟ (VLSM):</strong> يتبقي لدينا كتلة عناوين أخرى (باقي الـ 256 عنوان) تبدأ من العنوان التالي مباشرة (مثل `192.168.1.128`). يمكنك أخذ هذه الشبكة المتبقية وإدخالها مرة أخرى في المختبر لتقسيمها لشعبة أو قسم آخر أصغر حجماً بكل مرونة!
+                <strong>📌 تحليل النوتات وتوضيح مصير العناوين والكتل (Bit Borrowing Details):</strong><br>
+                • <strong>تحديد النطاق (1 إلى 126):</strong> العناوين من <code>1</code> إلى <code>126</code> هي النطاق الفعلي المتاح للأجهزة في هذه الكتلة الفرعية.<br>
+                • <strong>مصير الصفر والـ 27 والبث:</strong> العنوان <code>0</code> هو معرف الشبكة (Network ID)، والعنوان الأخير (مثل 127) هو البث العام (Broadcast). أما العناوين المتقدمة (مثل 28 فصاعداً) فلا تدخل ضمن نطاق الشبكة الأولى، بل تُرحّل وتُحسب تلقائياً للشبكة الفرعية أو التقسيمة التالية في نظام الـ VLSM.<br>
+                • <strong>ماذا عن الكتلة المتبقية؟</strong> يتبقي لدينا كتلة عناوين أخرى تبدأ من العنوان التالي مباشرة (مثل <code>192.168.1.128</code>)، وهي مستقلة تماماً وتُستخدم للتقسيمات القادمة.
             </div>
         </div>
     </div>
@@ -221,11 +221,11 @@
                 </li>
             </ul>
 
-            <h4>2. فئات العناوين (IP Classes):</h4>
+            <h4>2. فئات العناوين (IP Classes) وقناع الشبكة الافتراضي لكل كلاس:</h4>
             <ul>
-                <li><strong>Class A:</strong> مخصص للشبكات الضخمة جداً (يبدأ الرقم الأول من 1 إلى 127).</li>
-                <li><strong>Class B:</strong> مخصص للشبكات المتوسطة والشركات (يبدأ الرقم الأول من 128 إلى 191).</li>
-                <li><strong>Class C:</strong> مخصص للشبكات الصغيرة والبيوت والمكاتب (يبدأ الرقم الأول من 192 إلى 223، مثل 192.168.1.x).</li>
+                <li><strong>Class A:</strong> مخصص للشبكات الضخمة جداً (يبدأ الرقم الأول من 1 إلى 127) | <strong>قناع الشبكة الافتراضي:</strong> <code>255.0.0.0</code> (CIDR: <code>/8</code>).</li>
+                <li><strong>Class B:</strong> مخصص للشبكات المتوسطة والشركات (يبدأ الرقم الأول من 128 إلى 191) | <strong>قناع الشبكة الافتراضي:</strong> <code>255.255.0.0</code> (CIDR: <code>/16</code>).</li>
+                <li><strong>Class C:</strong> مخصص للشبكات الصغيرة والبيوت والمكاتب (يبدأ الرقم الأول من 192 إلى 223، مثل 192.168.1.x) | <strong>قناع الشبكة الافتراضي:</strong> <code>255.255.255.0</code> (CIDR: <code>/24</code>).</li>
                 <li><strong>Class D & E:</strong> مخصص للبث التجمعي (Multicast) والأبحاث العلمية والتجارب المستقبلية.</li>
             </ul>
 
@@ -300,22 +300,25 @@
         document.getElementById('resRange').textContent = intToIp(usableStart) + " - " + intToIp(usableEnd);
         document.getElementById('resBroadcast').textContent = intToIp(broadcastInt);
 
-        // بناء الهيكل الثنائي مع ترتيب البتات من اليسار (MSB: 2^7) إلى اليمين (LSB: 2^0)
+        // بناء الهيكل الثنائي: الأوبتكتات من اليمين (Octet 1) إلى اليسار (Octet 4)
+        // وبداخل كل أوبتكت البتات مرتبة من اليمين ($2^0$) إلى اليسار ($2^7$)
         let gridHtml = '';
         let binString = ipInt.toString(2).padStart(32, '0');
         
-        for (let octetIdx = 0; octetIdx < 4; octetIdx++) {
+        for (let octetIdx = 3; octetIdx >= 0; octetIdx--) {
+            let actualOctetNumber = 4 - octetIdx; // ليكون Octet 1 على اليمين و 4 على اليسار
             let octetBits = binString.substr(octetIdx * 8, 8);
             let octetDec = parseInt(octetBits, 2);
             
             gridHtml += `<div class="octet-box">
-                <div class="octet-title">Octet ${octetIdx + 1}</div>
+                <div class="octet-title">Octet ${actualOctetNumber}</div>
                 <div class="octet-dec">${octetDec}</div>
                 <div class="bits-container">`;
             
-            // ترتيب البتات من اليسار (bitIdx 0 يمثل 2^7) إلى اليمين (bitIdx 7 يمثل 2^0)
-            for (let bitIdx = 0; bitIdx < 8; bitIdx++) {
-                let globalBitPos = octetIdx * 8 + bitIdx;
+            // ترتيب البتات داخل الأوبتكت من اليمين ($2^0$) إلى اليسار ($2^7$)
+            for (let bitIdx = 7; bitIdx >= 0; bitIdx--) {
+                let realBitPosInOctet = 7 - bitIdx; 
+                let globalBitPos = (3 - octetIdx) * 8 + realBitPosInOctet;
                 let bitVal = octetBits[bitIdx];
                 let bitType = globalBitPos < cidr ? 'network' : 'host';
                 let powerOf2 = 7 - bitIdx;
