@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة المهندس الشاملة للشبكات</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #2563eb;
+            --network-color: #3b82f6;
+            --host-color: #10b981;
+            --border: #1f2937;
+            --accent: #f59e0b;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; font-size: 1.6rem; }
+        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
+        .nav-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+        .tab-btn { background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; white-space: nowrap; font-size: 0.9rem; transition: 0.2s; }
+        .tab-btn.active { background-color: var(--primary); color: white; border-color: var(--primary); }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.9rem; }
+        input[type="text"], input[type="number"] { width: 100%; background-color: #030712; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        input[type="range"] { width: 100%; margin-top: 10px; }
+        .grid-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
+        .result-box { background-color: #030712; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+        .result-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .result-value { font-size: 1rem; font-weight: bold; font-family: monospace; color: #60a5fa; }
+        .binary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; }
+        @media(max-width: 600px) { .binary-grid { grid-template-columns: repeat(2, 1fr); } }
+        .octet-box { background-color: #030712; border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
+        .octet-title { font-size: 0.75rem; color: var(--text-muted); }
+        .octet-dec { font-weight: bold; margin: 4px 0; font-size: 0.95rem; }
+        .bits-container { display: flex; justify-content: center; gap: 2px; flex-wrap: wrap; }
+        .bit { width: 14px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-family: monospace; color: white; font-weight: bold; }
+        .bit.network { background-color: var(--network-color); }
+        .bit.host { background-color: var(--host-color); }
+        .legend { display: flex; gap: 15px; justify-content: center; margin-top: 12px; font-size: 0.85rem; }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .legend-color { width: 12px; height: 12px; border-radius: 2px; }
+        .theory-section h3 { color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 0; font-size: 1.1rem; }
+        .theory-section h4 { color: var(--accent); margin-bottom: 5px; font-size: 0.95rem; }
+        ul { padding-right: 18px; color: var(--text-muted); margin: 5px 0 15px 0; font-size: 0.9rem; }
+        li { margin-bottom: 6px; }
+        li strong { color: var(--text-color); }
+        .formula-box { background: #030712; border-right: 3px solid var(--accent); padding: 10px; margin: 8px 0; font-family: monospace; font-size: 0.9rem; color: #fbbf24; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>أداة المهندس الشاملة للشبكات</h1>
+    <p class="subtitle">التطبيق المتكامل: حاسبة حية + استلاف البتات + بروتوكول ARP + الشرح الكامل للسيشنات</p>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('calc')">حاسبة الآي بي الهندسية</button>
+        <button class="tab-btn" onclick="switchTab('subnet')">مختبر السابتينج واستلاف البتات</button>
+        <button class="tab-btn" onclick="switchTab('arp')">بروتوكول ARP التفصيلي</button>
+        <button class="tab-btn" onclick="switchTab('theory')">الشرح الشامل والقوانين</button>
+    </div>
+
+    <!-- TAB 1: CALCULATOR -->
+    <div id="calc" class="tab-pane active">
+        <div class="card">
+            <div class="form-group">
+                <label>عنوان الآي بي (IPv4 Address):</label>
+                <input type="text" id="ipInput" value="192.168.1.15" oninput="calculate()">
+            </div>
+            <div class="form-group">
+                <label>بادئة الشبكة (CIDR Prefix): <span id="cidrLabel">/24</span></label>
+                <input type="range" id="cidrRange" min="0" max="32" value="24" oninput="updateCidr(this.value)">
+            </div>
+        </div>
+        <div class="card">
+            <h3 style="margin-top:0; color:var(--primary); font-size:1.1rem;">النتائج التحليلية الحية</h3>
+            <div class="grid-results">
+                <div class="result-box">
+                    <div class="result-title">قناع الشبكة (Subnet Mask)</div>
+                    <div class="result-value" id="resSubnet">255.255.255.0</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">معرف الشبكة (Network ID)</div>
+                    <div class="result-value" id="resNetwork">192.168.1.0</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">نطاق الأجهزة (Usable Range)</div>
+                    <div class="result-value" id="resRange" style="font-size:0.8rem;">192.168.1.1 - 192.168.1.254</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">عنوان البث (Broadcast)</div>
+                    <div class="result-value" id="resBroadcast">192.168.1.255</div>
+                </div>
+            </div>
+            <h3 style="margin-top:20px; margin-bottom:5px; color:var(--primary); font-size:1rem;">الهيكل الثنائي للـ 32-Bit</h3>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background:var(--network-color)"></div> جزء الشبكة (Network)</div>
+                <div class="legend-item"><div class="legend-color" style="background:var(--host-color)"></div> جزء الجهاز (Host)</div>
+            </div>
+            <div class="binary-grid" id="binaryGrid"></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: SUBNETTING LAB -->
+    <div id="subnet" class="tab-pane">
+        <div class="card">
+            <h3 style="margin-top:0; color:var(--primary);">تخطيط وتقسيم الشبكات واستلاف البتات (Bit Borrowing)</h3>
+            <div class="form-group">
+                <label>عدد الأجهزة المطلوبة في الشبكة الفرعية:</label>
+                <input type="number" id="requiredHosts" value="100" oninput="calculateSubnetting()">
+            </div>
+            <div class="grid-results">
+                <div class="result-box">
+                    <div class="result-title">أقرب مضاعف كافٍ للأجهزة (2^h)</div>
+                    <div class="result-value" id="subNearest">128 (2^7)</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">بتات الأجهزة المتبقية (h)</div>
+                    <div class="result-value" id="subHostBits">7 بت</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">الـ CIDR الجديد بعد الاستلاف</div>
+                    <div class="result-value" id="subCidr">/25</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">الـ Subnet Mask الجديد</div>
+                    <div class="result-value" id="subMask">255.255.255.128</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: ARP PROTOCOL -->
+    <div id="arp" class="tab-pane">
+        <div class="card theory-section">
+            <h3>بروتوكول الـ ARP العملي (Address Resolution Protocol)</h3>
+            <h4>إيه هو بروتوكول الـ ARP وبيعمل إيه؟</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6;">
+                في شبكات الـ LAN المحلية، الأجهزة بتكلم بعضها عن طريق كارت الشبكة (Ethernet NIC)، وكارت الشبكة ما يفهمش حاجة اسمها IP Address؛ الكارت بيتعامل حصرياً بالعنوان الفيزيائي بتاعه وهو الـ <strong>MAC Address</strong> (المكون من 48 بت).<br>
+                لما جهازك بيبقى عارف الـ IP بتاع الجهاز التاني وعاوز يبعتله داتا، كارت الشبكة بيعترض بيقول: <em>"أنا معايا الآيبي بس معنديش الـ MAC بتاعه!"</em> وهنا بييجي دور الـ ARP كحلقة وصل أساسية عشان يسأل الشبكة ويجيب الـ MAC Address المقابل للـ IP ده.
+            </p>
+            <h4>خطوات عمل بروتوكول ARP الثلاثة بالتفصيل:</h4>
+            <ul>
+                <li><strong>1. ARP Request (طلب بصوت عالي - Broadcast):</strong> جهازك بيطلع رسالة صراخ عامة لكل الشبكة ويقول بصوت عالي: <em>"يا جماعة، مين معاك الآي بي 192.168.1.50؟ لو انت هو، ابعت لي الـ MAC Address بتاعك ضروري!"</em></li>
+                <li><strong>2. ARP Reply (رد في السر - Unicast):</strong> كل الأجهزة في الشبكة بتسمع النداء، ولكن الجهاز المعني صاحب الآيبي المستهدف بس هو اللي بيعبر ويرد على المرسل في السر ويقوله: <em>"أنا هو يا سيدي، والـ MAC Address بتاعي هو (XX:XX:XX...)."</em></li>
+                <li><strong>3. ARP Table / Cache (التخزين المؤقت):</strong> جهازك بياخد الـ MAC ده ويسجله عنده مؤقت في جدول اسمه (ARP Cache) عشان المرة الجاية ما يقعدش يسأل تاني ويبعت الداتا علطول في Frame صحيح.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 4: THEORY & RULES -->
+    <div id="theory" class="tab-pane">
+        <div class="card theory-section">
+            <h3>أولاً: السيشن الثانية - الآي بي والـ Subnet Mask ومحتويات IPv4</h3>
+            <ul>
+                <li><strong>ما هو الـ IP Address؟</strong> العنوان المنطقي (Logical Address) لجهازك على الشبكة (مثل عنوان بيتك الشارع ورقم العمارة).</li>
+                <li><strong>هيكل الـ IPv4 ومساحته (2^32):</strong> يتكون من 32 بت مقسمة إلى 4 أجزاء (Octets) قيمة كل جزء من 0 إلى 255. المساحة الإجمالية تحسب بمعادلة 2^32 (حوالي 4.3 مليار عنوان).</li>
+                <li><strong>فئات العناوين (IP Classes):</strong> من Class A لحد Class E (مثل Class C للبيوت والمكاتب الصغيرة).</li>
+                <li><strong>دور الـ Subnet Mask:</strong> مسطرة أو قناع يفصل بدقة بين جزء الشبكة (Network ID) وجزء الجهاز (Host ID). الأرقام (1) تعني Network والأرقام (0) تعني Host.</li>
+                <li><strong>استلاف البتات (Bit Borrowing):</strong> لما تحب تقسم الشبكة الكبيرة لشبكات فرعية أصغر (Subnets)، بتروح على جزء الـ Host (الأصفار اللي على اليمين)، وتستلف (تسرق) منه بت وتحوله لـ 1 بدل ما هو 0 (يعني بتزق الـ 1 ناحية اليمين)، وده بيكبر الـ CIDR (من /24 إلى /25) وبيغير الـ Subnet Mask وينتج شبكات فرعية جديدة بقاعدة 2^s.</li>
+                <li><strong>طرق تعيين الآيبيات:</strong> Static IP (ثابت يدوياً)، DHCP (توزيع تلقائي)، و APIPA (169.254.x.x - حالة طوارئ لما السيرفر يفصل).</li>
+            </ul>
+
+            <h3>ثانياً: القوانين الهندسية الثابتة</h3>
+            <div class="formula-box">1. إجمالي العناوين للشبكة: 2^h (حيث h هو عدد بتات الـ Host المتبقية أصفاراً).</div>
+            <div class="formula-box">2. الأجهزة الصالحة للاستخدام (Usable Hosts): 2^h - 2 (بنخصم 2 عشان Network ID و Broadcast).</div>
+            <div class="formula-box">3. عدد الشبكات الفرعية الناتجة: 2^s (حيث s هو عدد بتات الاستلاف).</div>
+            <div class="formula-box">4. أول جهاز في النطاق: Network Address + 1</div>
+            <div class="formula-box">5. آخر جهاز في النطاق: Broadcast Address - 1</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+    function updateCidr(val) {
+        document.getElementById('cidrRange').value = val;
+        document.getElementById('cidrLabel').textContent = '/' + val;
+        calculate();
+    }
+    function ipToInt(ip) { return ip.split('.').reduce((acc, octet) => ((acc << 8) + parseInt(octet, 10)) >>> 0, 0); }
+    function intToIp(int) { return [(int >>> 24) & 255, (int >>> 16) & 255, (int >>> 8) & 255, int & 255].join('.'); }
+    
+    function calculate() {
+        let ipStr = document.getElementById('ipInput').value.trim();
+        let cidr = parseInt(document.getElementById('cidrRange').value);
+        let ipInt = ipToInt(ipStr);
+        let maskInt = cidr === 0 ? 0 : (~((1 << (32 - cidr)) - 1)) >>> 0;
+        let netInt = (ipInt & maskInt) >>> 0;
+        let broadcastInt = (netInt | ~maskInt) >>> 0;
+        let usableStart = cidr >= 31 ? netInt : netInt + 1;
+        let usableEnd = cidr >= 31 ? broadcastInt : broadcastInt - 1;
+
+        document.getElementById('resSubnet').textContent = intToIp(maskInt);
+        document.getElementById('resNetwork').textContent = intToIp(netInt);
+        document.getElementById('resRange').textContent = intToIp(usableStart) + " - " + intToIp(usableEnd);
+        document.getElementById('resBroadcast').textContent = intToIp(broadcastInt);
+
+        let gridHtml = '';
+        let binString = ipInt.toString(2).padStart(32, '0');
+        for (let octetIdx = 0; octetIdx < 4; octetIdx++) {
+            let octetBits = binString.substr(octetIdx * 8, 8);
+            let octetDec = parseInt(octetBits, 2);
+            gridHtml += `<div class="octet-box"><div class="octet-title">Octet ${octetIdx + 1}</div><div class="octet-dec">${octetDec}</div><div class="bits-container">`;
+            for (let bitIdx = 0; bitIdx < 8; bitIdx++) {
+                let globalBitPos = octetIdx * 8 + bitIdx;
+                let bitVal = octetBits[bitIdx];
+                let bitType = globalBitPos < cidr ? 'network' : 'host';
+                gridHtml += `<div class="bit ${bitType}">${bitVal}</div>`;
+            }
+            gridHtml += `</div></div>`;
+        }
+        document.getElementById('binaryGrid').innerHTML = gridHtml;
+    }
+
+    function calculateSubnetting() {
+        let hosts = parseInt(document.getElementById('requiredHosts').value) || 0;
+        let h = 0;
+        while (Math.pow(2, h) - 2 < hosts && h < 30) { h++; }
+        let newCidr = 32 - h;
+        let maskInt = (~((1 << h) - 1)) >>> 0;
+        document.getElementById('subNearest').textContent = Math.pow(2, h) + " (2^" + h + ")";
+        document.getElementById('subHostBits').textContent = h + " بت";
+        document.getElementById('subCidr').textContent = "/" + newCidr;
+        document.getElementById('subMask').textContent = intToIp(maskInt);
+    }
+
+    calculate();
+    calculateSubnetting();
+</script>
+</body>
+</html>
