@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أداة المهندس الشاملة للشبكات</title>
+    <title>أداة المهندس الشاملة للشبكات - النسخة المتقدمة</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -23,70 +23,71 @@
             margin: 0;
             padding: 15px;
         }
-        .container { max-width: 900px; margin: 0 auto; }
-        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; font-size: 1.6rem; }
-        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; font-size: 1.8rem; }
+        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
         .nav-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
-        .tab-btn { background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; white-space: nowrap; font-size: 0.9rem; transition: 0.2s; }
+        .tab-btn { background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 12px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; white-space: nowrap; font-size: 0.95rem; transition: 0.2s; }
         .tab-btn.active { background-color: var(--primary); color: white; border-color: var(--primary); }
         .tab-pane { display: none; }
         .tab-pane.active { display: block; }
-        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.9rem; }
-        input[type="text"], input[type="number"] { width: 100%; background-color: #030712; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-        input[type="range"] { width: 100%; margin-top: 10px; }
-        .grid-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
-        .result-box { background-color: #030712; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-        .result-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
-        .result-value { font-size: 1rem; font-weight: bold; font-family: monospace; color: #60a5fa; }
-        .binary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; }
-        @media(max-width: 600px) { .binary-grid { grid-template-columns: repeat(2, 1fr); } }
-        .octet-box { background-color: #030712; border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
-        .octet-title { font-size: 0.75rem; color: var(--text-muted); }
-        .octet-dec { font-weight: bold; margin: 4px 0; font-size: 0.95rem; }
-        .bits-container { display: flex; justify-content: center; gap: 2px; flex-wrap: wrap; }
-        .bit { width: 14px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-family: monospace; color: white; font-weight: bold; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; font-weight: bold; }
+        input[type="text"], input[type="number"] { width: 100%; background-color: #030712; border: 1px solid var(--border); color: white; padding: 12px; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        input[type="range"] { width: 100%; margin-top: 10px; accent-color: var(--primary); }
+        .grid-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
+        .result-box { background-color: #030712; padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        .result-title { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+        .result-value { font-size: 1.05rem; font-weight: bold; font-family: monospace; color: #60a5fa; }
+        .binary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+        @media(max-width: 700px) { .binary-grid { grid-template-columns: repeat(2, 1fr); } }
+        .octet-box { background-color: #030712; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+        .octet-title { font-size: 0.8rem; color: var(--text-muted); }
+        .octet-dec { font-weight: bold; margin: 6px 0; font-size: 1rem; color: #fbbf24; }
+        .bits-container { display: flex; justify-content: center; gap: 3px; flex-wrap: wrap; }
+        .bit { width: 16px; height: 22px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-family: monospace; color: white; font-weight: bold; }
         .bit.network { background-color: var(--network-color); }
         .bit.host { background-color: var(--host-color); }
-        .legend { display: flex; gap: 15px; justify-content: center; margin-top: 12px; font-size: 0.85rem; }
-        .legend-item { display: flex; align-items: center; gap: 5px; }
-        .legend-color { width: 12px; height: 12px; border-radius: 2px; }
-        .theory-section h3 { color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 0; font-size: 1.1rem; }
-        .theory-section h4 { color: var(--accent); margin-bottom: 5px; font-size: 0.95rem; }
-        ul { padding-right: 18px; color: var(--text-muted); margin: 5px 0 15px 0; font-size: 0.9rem; }
-        li { margin-bottom: 6px; }
+        .legend { display: flex; gap: 20px; justify-content: center; margin-top: 15px; font-size: 0.9rem; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-color { width: 14px; height: 14px; border-radius: 3px; }
+        .theory-section h3 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-top: 0; font-size: 1.25rem; }
+        .theory-section h4 { color: var(--accent); margin-top: 20px; margin-bottom: 8px; font-size: 1.05rem; }
+        ul { padding-right: 20px; color: var(--text-muted); margin: 8px 0 15px 0; font-size: 0.95rem; line-height: 1.7; }
+        li { margin-bottom: 8px; }
         li strong { color: var(--text-color); }
-        .formula-box { background: #030712; border-right: 3px solid var(--accent); padding: 10px; margin: 8px 0; font-family: monospace; font-size: 0.9rem; color: #fbbf24; border-radius: 4px; }
+        .formula-box { background: #030712; border-right: 4px solid var(--accent); padding: 12px; margin: 12px 0; font-family: monospace; font-size: 0.95rem; color: #fbbf24; border-radius: 4px; line-height: 1.6; }
+        .note-box { background: #1e1b4b; border-right: 4px solid #818cf8; padding: 15px; margin: 15px 0; border-radius: 6px; font-size: 0.95rem; color: #e0e7ff; line-height: 1.7; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>أداة المهندس الشاملة للشبكات</h1>
-    <p class="subtitle">التطبيق المتكامل: حاسبة حية + استلاف البتات + بروتوكول ARP + الشرح الكامل للسيشنات</p>
+    <p class="subtitle">المرجع الهندسي المتكامل: حاسبة حية مع ترتيب البتات الصحيح + مختبر استلاف البتات و VLSM + بروتوكول ARP + الشرح الموسع</p>
 
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('calc')">حاسبة الآي بي الهندسية</button>
-        <button class="tab-btn" onclick="switchTab('subnet')">مختبر السابتينج واستلاف البتات</button>
+        <button class="tab-btn active" onclick="switchTab('calc')">حاسبة الآي بي والترتيب الثنائي</button>
+        <button class="tab-btn" onclick="switchTab('subnet')">مختبر السابتينج واستلاف البتات (Bit Borrowing)</button>
         <button class="tab-btn" onclick="switchTab('arp')">بروتوكول ARP التفصيلي</button>
-        <button class="tab-btn" onclick="switchTab('theory')">الشرح الشامل والقوانين</button>
+        <button class="tab-btn" onclick="switchTab('theory')">الشرح الشامل الموسع والقوانين</button>
     </div>
 
     <!-- TAB 1: CALCULATOR -->
     <div id="calc" class="tab-pane active">
         <div class="card">
             <div class="form-group">
-                <label>عنوان الآي بي (IPv4 Address):</label>
+                <label>عنوان الآي بي مع البادئة (IPv4 Address & CIDR):</label>
                 <input type="text" id="ipInput" value="192.168.1.15" oninput="calculate()">
             </div>
             <div class="form-group">
-                <label>بادئة الشبكة (CIDR Prefix): <span id="cidrLabel">/24</span></label>
+                <label>التحكم السريع بالبادئة (CIDR Prefix): <span id="cidrLabel">/24</span></label>
                 <input type="range" id="cidrRange" min="0" max="32" value="24" oninput="updateCidr(this.value)">
             </div>
         </div>
         <div class="card">
-            <h3 style="margin-top:0; color:var(--primary); font-size:1.1rem;">النتائج التحليلية الحية</h3>
+            <h3 style="margin-top:0; color:var(--primary); font-size:1.15rem;">النتائج التحليلية الحية للشبكة</h3>
             <div class="grid-results">
                 <div class="result-box">
                     <div class="result-title">قناع الشبكة (Subnet Mask)</div>
@@ -97,18 +98,25 @@
                     <div class="result-value" id="resNetwork">192.168.1.0</div>
                 </div>
                 <div class="result-box">
-                    <div class="result-title">نطاق الأجهزة (Usable Range)</div>
-                    <div class="result-value" id="resRange" style="font-size:0.8rem;">192.168.1.1 - 192.168.1.254</div>
+                    <div class="result-title">نطاق الأجهزة الصالحة (Usable Range)</div>
+                    <div class="result-value" id="resRange" style="font-size:0.85rem;">192.168.1.1 - 192.168.1.254</div>
                 </div>
                 <div class="result-box">
-                    <div class="result-title">عنوان البث (Broadcast)</div>
+                    <div class="result-title">عنوان البث العام (Broadcast Address)</div>
                     <div class="result-value" id="resBroadcast">192.168.1.255</div>
                 </div>
             </div>
-            <h3 style="margin-top:20px; margin-bottom:5px; color:var(--primary); font-size:1rem;">الهيكل الثنائي للـ 32-Bit</h3>
+
+            <div class="note-box">
+                <strong>💡 إضاءة هندسية حول الأيبيهات المحجوزة في النتائج:</strong><br>
+                • <strong>معرف الشبكة (Network ID - مثال .0):</strong> هو العنوان الأول في الشبكة ولا يمكن إعطاؤه لأي جهاز؛ لأنه يُستخدم لتعريف عنوان الشبكة ككل للراوترات.<br>
+                • <strong>عنوان البث (Broadcast Address - مثال .255):</strong> هو العنوان الأخير في الشبكة ولا يُعطى للأجهزة أيضاً؛ لأنه مخصص لإرسال رسالة جماعية لكل الأجهزة في نفس الشبكة في نفس اللحظة.
+            </div>
+
+            <h3 style="margin-top:25px; margin-bottom:5px; color:var(--primary); font-size:1.1rem;">الهيكل الثنائي للـ 32-Bit (مرتب من الأكبر $2^7$ على اليسار إلى الأصغر $2^0$ على اليمين)</h3>
             <div class="legend">
-                <div class="legend-item"><div class="legend-color" style="background:var(--network-color)"></div> جزء الشبكة (Network)</div>
-                <div class="legend-item"><div class="legend-color" style="background:var(--host-color)"></div> جزء الجهاز (Host)</div>
+                <div class="legend-item"><div class="legend-color" style="background:var(--network-color)"></div> جزء الشبكة (Network Bits)</div>
+                <div class="legend-item"><div class="legend-color" style="background:var(--host-color)"></div> جزء الجهاز (Host Bits)</div>
             </div>
             <div class="binary-grid" id="binaryGrid"></div>
         </div>
@@ -117,18 +125,23 @@
     <!-- TAB 2: SUBNETTING LAB -->
     <div id="subnet" class="tab-pane">
         <div class="card">
-            <h3 style="margin-top:0; color:var(--primary);">تخطيط وتقسيم الشبكات واستلاف البتات (Bit Borrowing)</h3>
+            <h3 style="margin-top:0; color:var(--primary);">مختبر تخطيط وتقسيم الشبكات واستلاف البتات (Bit Borrowing & VLSM)</h3>
+            <div class="form-group">
+                <label>عنوان شبكة الأساس (Base Network IP):</label>
+                <input type="text" id="baseIpInput" value="192.168.1.0">
+            </div>
             <div class="form-group">
                 <label>عدد الأجهزة المطلوبة في الشبكة الفرعية:</label>
                 <input type="number" id="requiredHosts" value="100" oninput="calculateSubnetting()">
             </div>
+            
             <div class="grid-results">
                 <div class="result-box">
-                    <div class="result-title">أقرب مضاعف كافٍ للأجهزة (2^h)</div>
-                    <div class="result-value" id="subNearest">128 (2^7)</div>
+                    <div class="result-title">أقرب مضاعف كافٍ للأجهزة ($2^h$)</div>
+                    <div class="result-value" id="subNearest">128 ($2^7$)</div>
                 </div>
                 <div class="result-box">
-                    <div class="result-title">بتات الأجهزة المتبقية (h)</div>
+                    <div class="result-title">بتات الأجهزة المتبقية ($h$)</div>
                     <div class="result-value" id="subHostBits">7 بت</div>
                 </div>
                 <div class="result-box">
@@ -140,6 +153,24 @@
                     <div class="result-value" id="subMask">255.255.255.128</div>
                 </div>
             </div>
+
+            <div class="grid-results" style="margin-top: 15px;">
+                <div class="result-box">
+                    <div class="result-title">نطاق الأيبيهات الناتجة (Range)</div>
+                    <div class="result-value" id="subRange" style="font-size:0.85rem;">192.168.1.1 - 192.168.1.126</div>
+                </div>
+                <div class="result-box">
+                    <div class="result-title">العناوين المتبقية (Unused/Remainder IPs)</div>
+                    <div class="result-value" id="subRemainder">128 عنوان متبقٍ</div>
+                </div>
+            </div>
+
+            <div class="note-box" style="margin-top:20px;">
+                <strong>📌 تحليل النوتات واستلاف البتات (Bit Borrowing Details):</strong><br>
+                • <strong>كيف تتم عملية الاستلاف؟</strong> عندما تطلب شبكة فرعية جديدة، نذهب إلى جهة الـ Host (أجزاء الأصفار على اليمين في قناع الشبكة الثنائي)، ونقوم بتحويل (استلاف) بتات من 0 إلى 1. كل بت نستلفه يضاعف عدد الشبكات الناتجة بقاعدة $2^s$.<br>
+                • <strong>مثال التطبيق الحالي:</strong> طلبت 100 جهاز، أقرب رقم يدعم هذا العدد هو 128 (يعني نحتاج 7 بتات للأجهزة $h=7$). وبما أن الإجمالي 32 بت، إذن الـ CIDR الجديد يصبح /25، وقناع الشبكة يتحول إلى `255.255.255.128`.<br>
+                • <strong>ماذا عن المتبقي وكيف نقسمه مرة أخرى؟ (VLSM):</strong> يتبقي لدينا كتلة عناوين أخرى (باقي الـ 256 عنوان) تبدأ من العنوان التالي مباشرة (مثل `192.168.1.128`). يمكنك أخذ هذه الشبكة المتبقية وإدخالها مرة أخرى في المختبر لتقسيمها لشعبة أو قسم آخر أصغر حجماً بكل مرونة!
+            </div>
         </div>
     </div>
 
@@ -147,16 +178,27 @@
     <div id="arp" class="tab-pane">
         <div class="card theory-section">
             <h3>بروتوكول الـ ARP العملي (Address Resolution Protocol)</h3>
-            <h4>إيه هو بروتوكول الـ ARP وبيعمل إيه؟</h4>
-            <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6;">
-                في شبكات الـ LAN المحلية، الأجهزة بتكلم بعضها عن طريق كارت الشبكة (Ethernet NIC)، وكارت الشبكة ما يفهمش حاجة اسمها IP Address؛ الكارت بيتعامل حصرياً بالعنوان الفيزيائي بتاعه وهو الـ <strong>MAC Address</strong> (المكون من 48 بت).<br>
-                لما جهازك بيبقى عارف الـ IP بتاع الجهاز التاني وعاوز يبعتله داتا، كارت الشبكة بيعترض بيقول: <em>"أنا معايا الآيبي بس معنديش الـ MAC بتاعه!"</em> وهنا بييجي دور الـ ARP كحلقة وصل أساسية عشان يسأل الشبكة ويجيب الـ MAC Address المقابل للـ IP ده.
+            
+            <h4>1. إيه هو بروتوكول ARP وبيعمل إيه؟ وليه بنحتاجه؟</h4>
+            <p>
+                في شبكات الـ LAN المحلية، الأجهزة بتكلم بعضها عن طريق كارت الشبكة (Ethernet NIC). كارت الشبكة والراوتر لا يفهمان نهائياً العنوان المنطقي المعروف بـ <strong>IP Address</strong>، بل يتعاملان حصرياً بالعنوان الفيزيائي الثابت المخزن على كارت الشبكة والمسمى <strong>MAC Address</strong> (المكون من 48 بت).<br>
+                عندما يريد جهاز إرسال بيانات لجهاز آخر على نفس الشبكة المحلية ومعه الـ IP الخاص به، يعترض كارت الشبكة ويقول: <em>"أنا معايا عنوان الـ IP بس معنديش الـ MAC Address الخاص به!"</em> وهنا يأتي دور بروتوكول <strong>ARP</strong> كحلقة وصل أساسية ومترجم فوري ليحول الـ IP إلى MAC Address صحيح لكي يتمكن كارت الشبكة من تغليف الداتا في Frame وإرسالها.
             </p>
-            <h4>خطوات عمل بروتوكول ARP الثلاثة بالتفصيل:</h4>
+
+            <h4>2. متى يُستخدم ولماذا؟</h4>
+            <p>يُستخدم حصرياً داخل الشبكة المحلية (LAN) عند محاولة الاتصال بجهاز آخر معروف عنوان الـ IP الخاص به ولكنه غير مسجل في الذاكرة المؤقتة (ARP Cache) الخاصة بجهاز المرسل.</p>
+
+            <h4>3. خطوات عمل بروتوكول ARP الثلاثة بالتفصيل الممل:</h4>
             <ul>
-                <li><strong>1. ARP Request (طلب بصوت عالي - Broadcast):</strong> جهازك بيطلع رسالة صراخ عامة لكل الشبكة ويقول بصوت عالي: <em>"يا جماعة، مين معاك الآي بي 192.168.1.50؟ لو انت هو، ابعت لي الـ MAC Address بتاعك ضروري!"</em></li>
-                <li><strong>2. ARP Reply (رد في السر - Unicast):</strong> كل الأجهزة في الشبكة بتسمع النداء، ولكن الجهاز المعني صاحب الآيبي المستهدف بس هو اللي بيعبر ويرد على المرسل في السر ويقوله: <em>"أنا هو يا سيدي، والـ MAC Address بتاعي هو (XX:XX:XX...)."</em></li>
-                <li><strong>3. ARP Table / Cache (التخزين المؤقت):</strong> جهازك بياخد الـ MAC ده ويسجله عنده مؤقت في جدول اسمه (ARP Cache) عشان المرة الجاية ما يقعدش يسأل تاني ويبعت الداتا علطول في Frame صحيح.</li>
+                <li><strong>الخطوة الأولى - ARP Request (طريقة الصراخ العام / Broadcast):</strong><br>
+                    جهازك يرسل رسالة جماعية لكل أجهزة الشبكة المحلية بصوت عالي: <em>"يا جماعة، مين فيكم معاك الآي بي 192.168.1.50؟ لو انت هو، ابعت لي الـ MAC Address بتاعك فوراً!"</em> (عنوان الـ MAC الوجهة في هذه الرسالة يكون `FF:FF:FF:FF:FF:FF` لكي يسمعه الجميع).
+                </li>
+                <li><strong>الخطوة الثانية - ARP Reply (الرد في السر / Unicast):</strong><br>
+                    كل أجهزة الشبكة تستمع للنداء، ولكن الجهاز المعني وحده (صاحب الآيبي 192.168.1.50) هو من يعير الأمر اهتماماً، فيرد على جهازك في السر بشكل مباشر (Unicast) ويقول له: <em>"أنا هو صاحب الآي بي، والـ MAC Address بتاعي هو (AA:BB:CC:11:22:33)."</em>
+                </li>
+                <li><strong>الخطوة الثالثة - ARP Table / Cache (التخزين المؤقت):</strong><br>
+                    جهازك يلتقط الـ MAC Address ويقوم بتسجيله فوراً في جدول مؤقت بذاكرته يسمى <strong>ARP Table</strong>. لكي في المرات القادمة لا يضطر للسؤال مرة أخرى، بل يرسل البيانات مباشرة في كبسولة Ethernet Frame صحيحة وسريعة.
+                </li>
             </ul>
         </div>
     </div>
@@ -164,22 +206,55 @@
     <!-- TAB 4: THEORY & RULES -->
     <div id="theory" class="tab-pane">
         <div class="card theory-section">
-            <h3>أولاً: السيشن الثانية - الآي بي والـ Subnet Mask ومحتويات IPv4</h3>
+            <h3>أولاً: الشرح الموسع للمحاضرة الثانية (أساسيات IPv4 والسبنتنج)</h3>
+            
+            <h4>1. مفهوم الـ IP Address ودور Subnet Mask:</h4>
             <ul>
-                <li><strong>ما هو الـ IP Address؟</strong> العنوان المنطقي (Logical Address) لجهازك على الشبكة (مثل عنوان بيتك الشارع ورقم العمارة).</li>
-                <li><strong>هيكل الـ IPv4 ومساحته (2^32):</strong> يتكون من 32 بت مقسمة إلى 4 أجزاء (Octets) قيمة كل جزء من 0 إلى 255. المساحة الإجمالية تحسب بمعادلة 2^32 (حوالي 4.3 مليار عنوان).</li>
-                <li><strong>فئات العناوين (IP Classes):</strong> من Class A لحد Class E (مثل Class C للبيوت والمكاتب الصغيرة).</li>
-                <li><strong>دور الـ Subnet Mask:</strong> مسطرة أو قناع يفصل بدقة بين جزء الشبكة (Network ID) وجزء الجهاز (Host ID). الأرقام (1) تعني Network والأرقام (0) تعني Host.</li>
-                <li><strong>استلاف البتات (Bit Borrowing):</strong> لما تحب تقسم الشبكة الكبيرة لشبكات فرعية أصغر (Subnets)، بتروح على جزء الـ Host (الأصفار اللي على اليمين)، وتستلف (تسرق) منه بت وتحوله لـ 1 بدل ما هو 0 (يعني بتزق الـ 1 ناحية اليمين)، وده بيكبر الـ CIDR (من /24 إلى /25) وبيغير الـ Subnet Mask وينتج شبكات فرعية جديدة بقاعدة 2^s.</li>
-                <li><strong>طرق تعيين الآيبيات:</strong> Static IP (ثابت يدوياً)، DHCP (توزيع تلقائي)، و APIPA (169.254.x.x - حالة طوارئ لما السيرفر يفصل).</li>
+                <li><strong>ما هو الـ IP Address؟</strong> هو العنوان المنطقي (Logical Address) لجهازك على الشبكة، ويشبه تماماً عنوان بيتك (اسم الشارع ورقم العمارة ورقم الشقة).</li>
+                <li><strong>هيكل الـ IPv4 ومساحته ($2^{32}$):</strong> يتكون العنوان من 32 بت مقسمة إلى 4 أجزاء (Octets) يفصل بينها نقاط. قيمة كل جزء تتراوح من 0 إلى 255. المساحة الإجمالية محسوبة بالمعادلة الرياضية $2^{32}$ (أي ما يعادل تقريباً 4.3 مليار عنوان في العالم).</li>
+                <li><strong>دور قناع الشبكة (Subnet Mask):</strong> بمثابة "مسطرة أو قناع" هندسي يفصل بدقة تامة بين جزأين أساسيين داخل الآي بي:
+                    <ul>
+                        <li><strong>Network ID (جزء الشبكة):</strong> يشبه اسم الشارع.</li>
+                        <li><strong>Host ID (جزء الجهاز):</strong> يشبه رقم الشقة.</li>
+                        <li>*قاعدة الأصفار والوحايد:* الأرقام التي قيمتها (1) في الـ Subnet Mask تعني تخصيصها للـ Network، والأرقام التي قيمتها (0) تعني تخصيصها للـ Host.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>2. فئات العناوين (IP Classes):</h4>
+            <ul>
+                <li><strong>Class A:</strong> مخصص للشبكات الضخمة جداً (يبدأ الرقم الأول من 1 إلى 127).</li>
+                <li><strong>Class B:</strong> مخصص للشبكات المتوسطة والشركات (يبدأ الرقم الأول من 128 إلى 191).</li>
+                <li><strong>Class C:</strong> مخصص للشبكات الصغيرة والبيوت والمكاتب (يبدأ الرقم الأول من 192 إلى 223، مثل 192.168.1.x).</li>
+                <li><strong>Class D & E:</strong> مخصص للبث التجمعي (Multicast) والأبحاث العلمية والتجارب المستقبلية.</li>
+            </ul>
+
+            <h4>3. تقنيات تقسيم الشبكات (Fixed Subnetting vs. VLSM):</h4>
+            <ul>
+                <li><strong>Fixed Subnetting (التقسيم الثابت):</strong> تقسيم الشبكة الأساسية إلى شبكات فرعية متساوية في الحجم وعدد الأجهزة تماماً.</li>
+                <li><strong>VLSM (Variable Length Subnet Mask - التقسيم متغير الطول):</strong> تقنية متقدمة جداً تسمح بتقسيم الشبكة إلى شبكات فرعية بأحجام مختلفة حسب حاجة كل قسم (مثلاً قسم مبيعات بـ 50 جهاز وقسم إدارة بـ 10 أجهزة)، مما يوفر في استهلاك الأيبيهات المهدرة.</li>
+            </ul>
+
+            <h4>4. أنواع العناوين (Public vs. Private IPs):</h4>
+            <ul>
+                <li><strong>Public IP:</strong> عناوين عامة ومسجلة عالمياً يمكن رؤيتها والتواصل معها مباشرة عبر الإنترنت (تديرها منظمة IANA).</li>
+                <li><strong>Private IP:</strong> عناوين محلية خاصة تستخدم داخل الشبكات الداخلية (المنزلية والشركات) ولا يمكن توجيهها مباشرة على الإنترنت (لذلك يتم استخدام تقنية NAT للتحويل).</li>
+            </ul>
+
+            <h4>5. طرق تعيين الأيبيهات للأجهزة (IP Assignment Methods):</h4>
+            <ul>
+                <li><strong>Static IP:</strong> إدخال عنوان الآي بي يدوياً وثباته للأبد (يُستخدم للسيرفرات، الطابعات، ومراكز التحكم).</li>
+                <li><strong>DHCP (Dynamic Host Configuration Protocol):</strong> سيرفر يقوم بتوزيع الأيبيهات والإعدادات تلقائياً على الأجهزة بمجرد اتصالها بالشبكة.</li>
+                <li><strong>Alternate Configuration:</strong> إعداد إضافي يضعه الجهاز لكي يستخدمه كبديل تلقائي إذا فشل في العثور على سيرفر DHCP.</li>
+                <li><strong>APIPA (Automatic Private IP Addressing - 169.254.x.x):</strong> وضع طوارئ ذاتي يمنحه نظام التشغيل لنفسه إذا فشل تماماً في الاتصال بالـ DHCP، لكي تستطيع الأجهزة التواصل داخل الغرفة المحلية فقط بدون إنترنت.</li>
             </ul>
 
             <h3>ثانياً: القوانين الهندسية الثابتة</h3>
-            <div class="formula-box">1. إجمالي العناوين للشبكة: 2^h (حيث h هو عدد بتات الـ Host المتبقية أصفاراً).</div>
-            <div class="formula-box">2. الأجهزة الصالحة للاستخدام (Usable Hosts): 2^h - 2 (بنخصم 2 عشان Network ID و Broadcast).</div>
-            <div class="formula-box">3. عدد الشبكات الفرعية الناتجة: 2^s (حيث s هو عدد بتات الاستلاف).</div>
-            <div class="formula-box">4. أول جهاز في النطاق: Network Address + 1</div>
-            <div class="formula-box">5. آخر جهاز في النطاق: Broadcast Address - 1</div>
+            <div class="formula-box">1. إجمالي العناوين للشبكة: 2<sup>h</sup> (حيث h هو عدد بتات الـ Host المتبقية أصفاراً في قناع الشبكة).</div>
+            <div class="formula-box">2. الأجهزة الصالحة للاستخدام الحقيقي (Usable Hosts): 2<sup>h</sup> - 2 (نخصم 2 دائماً: عنوان Network ID وععنوان Broadcast).</div>
+            <div class="formula-box">3. عدد الشبكات الفرعية الناتجة من الاستلاف: 2<sup>s</sup> (حيث s هو عدد بتات الاستلاف الجديدة).</div>
+            <div class="formula-box">4. أول جهاز صالح في النطاق: Network Address + 1</div>
+            <div class="formula-box">5. آخر جهاز صالح في النطاق: Broadcast Address - 1</div>
         </div>
     </div>
 </div>
@@ -191,21 +266,32 @@
         event.currentTarget.classList.add('active');
         document.getElementById(tabId).classList.add('active');
     }
+
     function updateCidr(val) {
         document.getElementById('cidrRange').value = val;
         document.getElementById('cidrLabel').textContent = '/' + val;
         calculate();
     }
-    function ipToInt(ip) { return ip.split('.').reduce((acc, octet) => ((acc << 8) + parseInt(octet, 10)) >>> 0, 0); }
-    function intToIp(int) { return [(int >>> 24) & 255, (int >>> 16) & 255, (int >>> 8) & 255, int & 255].join('.'); }
-    
+
+    function ipToInt(ip) {
+        return ip.split('.').reduce((acc, octet) => ((acc << 8) + parseInt(octet, 10)) >>> 0, 0);
+    }
+
+    function intToIp(int) {
+        return [(int >>> 24) & 255, (int >>> 16) & 255, (int >>> 8) & 255, int & 255].join('.');
+    }
+
     function calculate() {
         let ipStr = document.getElementById('ipInput').value.trim();
         let cidr = parseInt(document.getElementById('cidrRange').value);
+        document.getElementById('cidrLabel').textContent = '/' + cidr;
+
         let ipInt = ipToInt(ipStr);
         let maskInt = cidr === 0 ? 0 : (~((1 << (32 - cidr)) - 1)) >>> 0;
+        
         let netInt = (ipInt & maskInt) >>> 0;
         let broadcastInt = (netInt | ~maskInt) >>> 0;
+        
         let usableStart = cidr >= 31 ? netInt : netInt + 1;
         let usableEnd = cidr >= 31 ? broadcastInt : broadcastInt - 1;
 
@@ -214,17 +300,26 @@
         document.getElementById('resRange').textContent = intToIp(usableStart) + " - " + intToIp(usableEnd);
         document.getElementById('resBroadcast').textContent = intToIp(broadcastInt);
 
+        // بناء الهيكل الثنائي مع ترتيب البتات من اليسار (MSB: 2^7) إلى اليمين (LSB: 2^0)
         let gridHtml = '';
         let binString = ipInt.toString(2).padStart(32, '0');
+        
         for (let octetIdx = 0; octetIdx < 4; octetIdx++) {
             let octetBits = binString.substr(octetIdx * 8, 8);
             let octetDec = parseInt(octetBits, 2);
-            gridHtml += `<div class="octet-box"><div class="octet-title">Octet ${octetIdx + 1}</div><div class="octet-dec">${octetDec}</div><div class="bits-container">`;
+            
+            gridHtml += `<div class="octet-box">
+                <div class="octet-title">Octet ${octetIdx + 1}</div>
+                <div class="octet-dec">${octetDec}</div>
+                <div class="bits-container">`;
+            
+            // ترتيب البتات من اليسار (bitIdx 0 يمثل 2^7) إلى اليمين (bitIdx 7 يمثل 2^0)
             for (let bitIdx = 0; bitIdx < 8; bitIdx++) {
                 let globalBitPos = octetIdx * 8 + bitIdx;
                 let bitVal = octetBits[bitIdx];
                 let bitType = globalBitPos < cidr ? 'network' : 'host';
-                gridHtml += `<div class="bit ${bitType}">${bitVal}</div>`;
+                let powerOf2 = 7 - bitIdx;
+                gridHtml += `<div class="bit ${bitType}" title="Bit 2^${powerOf2}: ${bitVal}"> ${bitVal} </div>`;
             }
             gridHtml += `</div></div>`;
         }
@@ -233,18 +328,34 @@
 
     function calculateSubnetting() {
         let hosts = parseInt(document.getElementById('requiredHosts').value) || 0;
+        let baseIpStr = document.getElementById('baseIpInput').value.trim();
+        
         let h = 0;
-        while (Math.pow(2, h) - 2 < hosts && h < 30) { h++; }
+        while (Math.pow(2, h) - 2 < hosts && h < 30) {
+            h++;
+        }
+        let totalBlockSize = Math.pow(2, h);
         let newCidr = 32 - h;
         let maskInt = (~((1 << h) - 1)) >>> 0;
-        document.getElementById('subNearest').textContent = Math.pow(2, h) + " (2^" + h + ")";
+        
+        let baseInt = ipToInt(baseIpStr);
+        let netInt = (baseInt & maskInt) >>> 0;
+        let broadcastInt = (netInt + totalBlockSize - 1) >>> 0;
+        let usableStart = netInt + 1;
+        let usableEnd = broadcastInt - 1;
+        let remainderCount = Math.max(0, totalBlockSize - (hosts + 2));
+
+        document.getElementById('subNearest').textContent = totalBlockSize + " (2^" + h + ")";
         document.getElementById('subHostBits').textContent = h + " بت";
         document.getElementById('subCidr').textContent = "/" + newCidr;
         document.getElementById('subMask').textContent = intToIp(maskInt);
+        document.getElementById('subRange').textContent = intToIp(usableStart) + " - " + intToIp(usableEnd);
+        document.getElementById('subRemainder').textContent = totalBlockSize + " إجمالي الكتلة (متاح منها كأجهزة " + hosts + "، والباقي محجوز للشبكة والبث والمتبقي " + remainderCount + ")";
     }
 
     calculate();
     calculateSubnetting();
 </script>
+
 </body>
 </html>
